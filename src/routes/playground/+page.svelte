@@ -1,9 +1,4 @@
 <script>
-	import { page } from '$app/stores';
-	import { redirect } from '@sveltejs/kit';
-	if ($page.url.pathname === '/') {
-		throw redirect(308, '/playground');
-	}
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">

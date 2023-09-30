@@ -1,15 +1,14 @@
-<script lang="ts">
-	import { AppRail, AppRailAnchor, AppRailTile } from '@skeletonlabs/skeleton';
+<script>
+	import { getContext } from 'svelte';
 	import { Icon, Plus } from 'svelte-hero-icons';
-	let currentTile = 0;
+	let currentTab = 0;
 
-	export let tab: string;
-	export let title: string;
+	let state = getContext('state');
 </script>
 
 <div class="m-4">
 	<button type="button" class="btn variant-filled">
 		<Icon src={Plus} class="w-6 h-6" />
-		New {tab}
+		New {$state.tab}
 	</button>
 </div>
