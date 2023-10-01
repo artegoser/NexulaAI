@@ -9,7 +9,7 @@
 	import Footer from '../../components/Footer.svelte';
 
 	if ($page.url.pathname === '/') {
-		throw redirect(308, '/chat');
+		throw redirect(308, '/playground');
 	}
 
 	const state = writable();
@@ -17,7 +17,8 @@
 	$: state.set({
 		title: 'Unknown',
 		tab: 'chat',
-		text: ''
+		text: '',
+		currentTabItem: -1
 	});
 
 	setContext('state', state);

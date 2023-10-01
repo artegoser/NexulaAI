@@ -9,11 +9,23 @@
 <AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
 	<svelte:fragment slot="lead">
 		<RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
-			<RadioItem bind:group={$state.tab} name="justify" class="flex" value="chat">
+			<RadioItem
+				bind:group={$state.tab}
+				name="justify"
+				class="flex"
+				value="chat"
+				on:click={() => ($state.currentTabItem = -1)}
+			>
 				<Icon src={ChatBubbleOvalLeft} class="w-6 h-6 pr-1" />
 				Chat
 			</RadioItem>
-			<RadioItem bind:group={$state.tab} name="justify" class="flex" value="prompt">
+			<RadioItem
+				bind:group={$state.tab}
+				name="justify"
+				class="flex"
+				value="prompt"
+				on:click={() => ($state.currentTabItem = -1)}
+			>
 				<Icon src={DocumentText} class="w-6 h-6 pr-1" />
 				Prompt
 			</RadioItem>
