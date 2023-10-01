@@ -1,9 +1,10 @@
 <script>
 	import { getContext } from 'svelte';
-	import { Icon, Plus, ChatBubbleOvalLeft } from 'svelte-hero-icons';
+	import { Icon, Plus, ChatBubbleOvalLeft, DocumentText } from 'svelte-hero-icons';
 	import { db } from '$lib/db';
 
 	import { liveQuery } from 'dexie';
+	import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
 
 	let state = getContext('state');
 
@@ -41,14 +42,23 @@
 		<Icon src={Plus} class="w-6 h-6" />
 		New {$state.tab}
 	</button>
-	{#each $tabItems || [] as item}
-		<button
-			type="button"
-			class="btn variant-filled mt-2"
-			on:click={() => ($state.currentTabItem = item.id)}
-		>
-			<Icon src={ChatBubbleOvalLeft} class="w-6 h-6" />
-			{item.name}
-		</button>
-	{/each}
+	<hr class="mt-2" />
+	<ListBox>
+		{#each $tabItems || [] as item}
+			<ListBoxItem
+				class="mt-2"
+				on:click={() => {
+					$state.title = item.name;
+				}}
+				bind:group={$state.currentTabItem}
+				value={item.id}
+				name={item.name}
+			>
+				<div class="flex">
+					<Icon src={$state.tab === 'chat' ? ChatBubbleOvalLeft : DocumentText} class="w-6 h-6" />
+					{item.name === item.name.slice(0, 15) ? item.name : item.name.slice(0, 15) + '...'}
+				</div>
+			</ListBoxItem>
+		{/each}
+	</ListBox>
 </div>

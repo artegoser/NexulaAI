@@ -31,6 +31,6 @@
 			<Sidebar />
 		</div>
 	</svelte:fragment>
-	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
+	<svelte:fragment slot="footer"><Footer /></svelte:fragment>
 	<slot />
 </AppShell>
