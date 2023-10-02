@@ -3,6 +3,7 @@
 	import { getContext } from 'svelte';
 	import { Icon, ChatBubbleOvalLeft, DocumentText, Cog6Tooth } from 'svelte-hero-icons';
 	import { db } from '$lib/db';
+	import { getModels } from '$lib/chat';
 
 	let state = getContext('state');
 
@@ -13,6 +14,20 @@
 			db.prompts.update($state.currentTabItem, { name: $state.title });
 		}
 	}
+
+	function changeModel() {
+		if ($state.tab === 'chat') {
+			db.chats.update($state.currentTabItem, { model: $state.model });
+		} else {
+			db.prompts.update($state.currentTabItem, { model: $state.model });
+		}
+	}
+
+	/** @type string[]*/
+	let models;
+	getModels().then((res) => {
+		models = res;
+	});
 </script>
 
 <AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
@@ -49,6 +64,11 @@
 	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 		<div class="input-group-shim">{$state.tab}</div>
 		<input type="text" placeholder="Title" bind:value={$state.title} on:change={changeTitle} />
+		<select bind:value={$state.model} on:change={changeModel}>
+			{#each models || [] as model}
+				<option value={model}>{model}</option>
+			{/each}
+		</select>
 	</div>
 	<svelte:fragment slot="trail">
 		<button type="button" class="btn-icon variant-filled"

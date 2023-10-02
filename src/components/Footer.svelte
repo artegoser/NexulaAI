@@ -2,6 +2,7 @@
 	import { getContext } from 'svelte';
 	import { Icon, PaperAirplane } from 'svelte-hero-icons';
 
+	import { getResponse } from '$lib/chat';
 	import { db } from '$lib/db';
 
 	let state = getContext('state');
@@ -11,11 +12,21 @@
 			await db.chat_messages.add({
 				chat_id: $state.currentTabItem,
 				role: 'user',
-				text: $state.text,
+				content: $state.text,
 				time: Date.now()
 			});
 
 			$state.text = '';
+
+			await db.chat_messages.add({
+				chat_id: $state.currentTabItem,
+				role: 'assistant',
+				content: await getResponse(
+					await db.chat_messages.where('chat_id').equals($state.currentTabItem).toArray(),
+					$state.model
+				),
+				time: Date.now()
+			});
 		}
 	};
 </script>

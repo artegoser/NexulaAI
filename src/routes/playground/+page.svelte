@@ -22,7 +22,7 @@
 		{#if $state.tab === 'chat'}
 			{#each $data || [] as item}
 				{#if item}
-					<ChatBubble role={item.role} time={item.time} message={item.text} />
+					<ChatBubble role={item.role} time={item.time} message={item.content} />
 				{/if}
 			{/each}
 		{:else}

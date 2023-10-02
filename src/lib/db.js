@@ -4,9 +4,9 @@ class nexulaDb extends Dexie {
 	constructor() {
 		super('nexulaai');
 		this.version(1).stores({
-			chats: '++id, name',
-			prompts: '++id, name, text',
-			chat_messages: '++id, chat_id, text, role, time'
+			chats: '++id, name, model',
+			prompts: '++id, name, text, model',
+			chat_messages: '++id, chat_id, content, role, time'
 		});
 
 		this.chats = this.table('chats');

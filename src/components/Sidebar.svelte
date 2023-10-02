@@ -11,19 +11,21 @@
 	const newTabItem = async () => {
 		if ($state.tab === 'chat') {
 			const id = await db.chats.add({
-				name: 'Unnamed'
+				name: 'Unnamed',
+				model: 'free-gpt-3.5-turbo'
 			});
 
 			db.chat_messages.add({
 				chat_id: id,
 				role: 'system',
-				text: `You are ChatGPT also known as ChatGPT, a large language model trained by OpenAI. Strictly follow the users instructions. Knowledge cutoff: 2021-09-01 Current date: ${new Date().toLocaleString()}`,
+				content: `You are ChatGPT also known as ChatGPT, a large language model trained by OpenAI. Strictly follow the users instructions. Knowledge cutoff: 2021-09-01 Current date: ${new Date().toLocaleString()}`,
 				time: Date.now()
 			});
 		} else {
 			db.prompts.add({
 				name: 'Unnamed',
-				text: ''
+				text: '',
+				model: 'free-gpt-3.5-turbo'
 			});
 		}
 	};
@@ -49,6 +51,7 @@
 				class="mt-2"
 				on:click={() => {
 					$state.title = item.name;
+					$state.model = item.model;
 				}}
 				bind:group={$state.currentTabItem}
 				value={item.id}

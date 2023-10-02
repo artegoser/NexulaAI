@@ -18,7 +18,8 @@
 		title: 'Unknown',
 		tab: 'chat',
 		text: '',
-		currentTabItem: -1
+		currentTabItem: -1,
+		model: 'free-gpt-3.5-turbo'
 	});
 
 	setContext('state', state);
